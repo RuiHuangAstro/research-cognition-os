@@ -1,0 +1,21 @@
+experiment_id: E001_xxx
+date: YYYY-MM-DD
+status: active | questioned | deprecated
+trust_level: high | medium | low
+reason_for_status: ...
+question: >
+  ...
+code_commit: abc1234
+inputs:
+  key_file: path/to/input
+outputs:
+  figures:
+    - figures/xxx.png
+  tables:
+    - results/xxx.csv
+main_result: >
+  ...
+known_issues:
+  - ...
+linked_bug: [B001_xxx]
+linked_insights: [I001_xxx]
