@@ -37,11 +37,14 @@ def write_file(path, content):
     with open(path, 'w', encoding='utf-8') as f:
         f.write(content)
 
+SECTION_PATTERN = re.compile(r'^##\s+(did|found|next|related)\s*\n', re.MULTILINE | re.IGNORECASE)
+
+
 def extract_sections(content):
     """Return dict of section name -> content (excluding header line)."""
-    # Pattern to match section headers - case insensitive for DID/FOUND/NEXT, case sensitive for Related
-    pattern = re.compile(r'^## (DID|FOUND|NEXT|Related)\n', re.MULTILINE)
-    matches = list(pattern.finditer(content))
+    # Match section headers case-insensitively. Older session files used DID/FOUND/NEXT;
+    # newer templates may use Did/Found/Next. Both must be preserved by --fix.
+    matches = list(SECTION_PATTERN.finditer(content))
     sections = {}
     for i, m in enumerate(matches):
         name = m.group(1).lower()
@@ -113,6 +116,8 @@ def fix_session(content, filename):
         pass
     
     # Sections
+    first_section = SECTION_PATTERN.search(body)
+    preamble = body[:first_section.start()].strip() if first_section else ''
     sections = extract_sections(body)
     # Ensure Did, Found, Next exist
     for sec in ['did', 'found', 'next']:
@@ -137,11 +142,14 @@ def fix_session(content, filename):
             sections['related'] = new_rel
     
     # Reconstruct body
+    # Preserve any preamble before the first session section (typically '# Session YYYY-MM-DD').
     # Order: Did, Found, Next, Related (if present)
     ordered = ['did', 'found', 'next']
     if 'related' in sections:
         ordered.append('related')
     body_parts = []
+    if preamble:
+        body_parts.append(preamble)
     for sec in ordered:
         body_parts.append(f'## {sec.upper()}\n{sections[sec]}')
     body = '\n\n'.join(body_parts)

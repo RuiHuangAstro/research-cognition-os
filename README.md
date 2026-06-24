@@ -15,8 +15,11 @@ This is not task management — it's **cognitive state management**.
 | File | Purpose |
 |------|---------|
 | `00_AI_BRIEFING.md` | Machine-readable project summary |
-| `01_CURRENT_QUESTION.md` | Active question + sub-questions |
-| `02_TRUST_TABLE.md` | Evidence → trust → decision ledger |
+| `01_PROJECT_INDEX.md` | Project global index |
+| `02_CURRENT_QUESTION.md` | Active question + sub-questions |
+| `03_TRUST_TABLE.md` | Evidence → trust → decision ledger |
+| `04_DECISION_LOG.md` | Major decision records |
+| `05_PROJECT_DAG.md` | Research DAG (Mermaid) |
 | `stages/` | Research stage progression |
 | `insights/` | Key findings with confidence levels |
 | `experiments/` | Experiment manifests + results |
@@ -50,7 +53,7 @@ research-cognition-os/
 ├── SKILL.md              # Skill definition (YAML frontmatter + full methodology)
 ├── README.md             # This file
 ├── .gitignore
-├── references/           # 38 reference documents
+├── references/           # 42 reference documents
 │   ├── dag-design-principles.md
 │   ├── deep-audit-methodology.md
 │   ├── orchestrator-deployment.md
@@ -60,7 +63,7 @@ research-cognition-os/
 │   ├── cog_os_cron.sh         # Cron sync
 │   ├── cog_os_drift_detect.sh # Drift detection
 │   └── session_linter.py      # Session formalization linter
-└── templates/            # 11 project templates
+└── templates/            # 13 project templates
     ├── ai-briefing-template.md
     ├── trust-table-template.md
     ├── insight-template.md
